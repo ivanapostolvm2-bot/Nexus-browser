@@ -1,8 +1,8 @@
 {
   "product": "Nexus",
-  "version": "1.0.0",
-  "releaseDate": null,
-  "releaseNotes": "Първа публична версия на Nexus.",
-  "downloadUrl": null,
-  "sha256": null
+  "version": "1.0.1",
+  "releaseDate": "2026-10-29T20:35:07Z",
+  "releaseNotes": "Initial update with automatic version checks.",
+  "downloadUrl": "https://github.com/ivanapostolvm2-bot/Nexus-browser/releases/download/v1.0.1/NexusSetup-1.0.1.exe",
+  "sha256": "23658f5c91239ec529f5391d8d2acbb886e671a9f307ddbe40977bdf60c2831c"
 }
