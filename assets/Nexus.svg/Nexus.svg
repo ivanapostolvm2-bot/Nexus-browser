@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="background" x1="25" y1="18" x2="228" y2="242" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#242044"/>
+      <stop offset="1" stop-color="#11121E"/>
+    </linearGradient>
+    <linearGradient id="frame" x1="42" y1="34" x2="211" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B5A9FF"/>
+      <stop offset=".5" stop-color="#7868F5"/>
+      <stop offset="1" stop-color="#52DCE9"/>
+    </linearGradient>
+    <linearGradient id="nexus" x1="77" y1="72" x2="181" y2="187" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".52" stop-color="#DED9FF"/>
+      <stop offset="1" stop-color="#9AF3F1"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 104 -104 0 128 121)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8977FF" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#8977FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="66" fill="url(#background)"/>
+  <rect x="8.75" y="8.75" width="238.5" height="238.5" rx="65.25" stroke="url(#frame)" stroke-opacity=".72" stroke-width="1.5"/>
+  <circle cx="128" cy="128" r="102" fill="url(#glow)"/>
+  <circle cx="128" cy="128" r="79" stroke="url(#frame)" stroke-opacity=".46" stroke-width="2"/>
+  <path d="M128 35v13m0 160v13M35 128h13m160 0h13" stroke="url(#frame)" stroke-linecap="round" stroke-width="4" stroke-opacity=".9"/>
+  <path d="M77 177V79h19l64 68V79h19v98h-18l-65-69v69H77Z" fill="url(#nexus)"/>
+  <circle cx="195" cy="65" r="5" fill="#68E6E8"/>
+</svg>
