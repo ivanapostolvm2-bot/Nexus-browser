@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101117">
   <meta name="description" content="Nexus е твоят нов браузър. Откривай, търси и разглеждай в свое темпо.">
-  <link rel="icon" href="assets/Nexus.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/Nexus.svg/Nexus.svg" type="image/svg+xml">
   <title>Nexus — интернетът, по твоя начин</title>
   <style>
     :root {
@@ -294,7 +294,7 @@
 <body>
   <header class="shell">
     <a class="brand" href="#" aria-label="Nexus — начало">
-      <img src="assets/Nexus.svg" alt="">
+      <img src="assets/Nexus.svg/Nexus.svg" alt="">
       <span>nex<span>us</span></span>
     </a>
     <nav class="nav" aria-label="Основна навигация">
@@ -316,7 +316,7 @@
         <p class="requirements">За Windows 10 и 11 · 64-битов компютър</p>
       </div>
       <div class="preview" aria-label="Лого на Nexus">
-        <div class="icon-frame"><img src="assets/Nexus.svg" alt="Лого на Nexus"></div>
+        <div class="icon-frame"><img src="assets/Nexus.svg/Nexus.svg" alt="Лого на Nexus"></div>
       </div>
     </section>
 
@@ -368,42 +368,34 @@
       const button = document.getElementById("download-button");
 
       try {
-        const response = await fetch("updates/latest.json", { cache: "no-store" });
+        const response = await fetch("updates/latest.json/latest.json", { cache: "no-store" });
         if (!response.ok) {
           throw new Error(`Актуализациите отговориха с код ${response.status}.`);
         }
 
         const release = await response.json();
-        const relativeUrl = typeof release.downloadUrl === "string" ? release.downloadUrl : "";
+        const releaseUrl = typeof release.downloadUrl === "string" ? release.downloadUrl : "";
         const hash = typeof release.sha256 === "string" ? release.sha256 : "";
-        const isSafeRelativeUrl =
-          relativeUrl.length > 0 &&
-          !relativeUrl.startsWith("/") &&
-          !relativeUrl.startsWith("\\") &&
-          !relativeUrl.includes("\\") &&
-          !/^[a-z][a-z\d+.-]*:/i.test(relativeUrl) &&
-          !relativeUrl.split("/").includes("..");
+        const isSafeReleaseUrl =
+          typeof release.version === "string" &&
+          /^\d+\.\d+\.\d+$/.test(release.version) &&
+          releaseUrl ===
+            `https://github.com/ivanapostolvm2-bot/Nexus-browser/releases/download/v${release.version}/NexusSetup-${release.version}.exe`;
 
         if (
           release.product !== "Nexus" ||
-          !/^\d+\.\d+\.\d+$/.test(release.version) ||
-          !isSafeRelativeUrl ||
+          !isSafeReleaseUrl ||
           !/^[a-f\d]{64}$/i.test(hash)
         ) {
           throw new Error("Информацията за тази версия е непълна.");
         }
 
-        const downloadUrl = new URL(relativeUrl, window.location.href);
-        if (downloadUrl.origin !== window.location.origin) {
-          throw new Error("Източникът за изтегляне не съвпада със сайта.");
-        }
-
-        button.href = downloadUrl.href;
+        button.href = releaseUrl;
         button.hidden = false;
         status.innerHTML = `Последна версия: <strong>${release.version}</strong> · Windows 64-bit`;
         button.setAttribute("aria-label", `Изтегли Nexus версия ${release.version}`);
       } catch {
-        status.textContent = "Скоро — изтеглянето ще е достъпно след публикуването на сайта.";
+        status.textContent = "Скоро — проверката за изтегляне не беше успешна.";
       }
     }
 
