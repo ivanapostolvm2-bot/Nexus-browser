@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101117">
+  <meta name="description" content="Nexus е твоят нов браузър. Откривай, търси и разглеждай в свое темпо.">
+  <link rel="icon" href="assets/Nexus.svg" type="image/svg+xml">
+  <title>Nexus — интернетът, по твоя начин</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Segoe UI", Arial, sans-serif;
+      --background: #0c0d13;
+      --surface: #151620;
+      --surface-raised: #1c1d29;
+      --border: #ffffff14;
+      --text: #f3f2ff;
+      --muted: #aaaabc;
+      --purple: #a397ff;
+      --accent: #8375fa;
+      --cyan: #66e4e6;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% 20%, #28234d66 0, transparent 48%),
+        var(--background);
+    }
+
+    a { color: inherit; }
+    [hidden] { display: none !important; }
+
+    .shell {
+      width: min(1120px, calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    header {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+    }
+
+    .brand img { width: 38px; height: 38px; }
+
+    .brand span { font-size: 19px; font-weight: 720; letter-spacing: -.7px; }
+
+    .brand span span { color: var(--purple); }
+
+    .nav { display: flex; align-items: center; gap: 28px; }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color .18s ease;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .nav .download-nav {
+      padding: 10px 16px;
+      border: 1px solid #a397ff42;
+      border-radius: 10px;
+      color: #e4e0ff;
+      background: #8375fa17;
+    }
+
+    .hero {
+      min-height: 640px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+      align-items: center;
+      gap: 46px;
+      padding: 76px 0 84px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #b6adff;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px #66e4e699;
+      content: "";
+    }
+
+    h1 {
+      max-width: 640px;
+      margin: 22px 0 19px;
+      font-size: clamp(52px, 8vw, 82px);
+      line-height: .99;
+      letter-spacing: -5px;
+    }
+
+    h1 span {
+      color: transparent;
+      background: linear-gradient(110deg, #c0b5ff 6%, #8577fa 55%, #66dfe4 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .intro {
+      max-width: 510px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-top: 30px; }
+
+    .primary, .secondary {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 19px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 650;
+      text-decoration: none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(115deg, #8576fa, #6658d9);
+      box-shadow: 0 10px 32px #7869ec32;
+    }
+
+    .primary:hover { transform: translateY(-2px); background: linear-gradient(115deg, #988bff, #796cf0); }
+
+    .secondary {
+      border-color: var(--border);
+      color: #d3d1e4;
+      background: #ffffff06;
+    }
+
+    .secondary:hover { border-color: #a397ff65; background: #ffffff0b; }
+
+    .requirements { margin-top: 15px; color: #818294; font-size: 11px; }
+
+    .preview {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 390px;
+    }
+
+    .preview::before {
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border-radius: 50%;
+      background: #8275ff25;
+      filter: blur(80px);
+      content: "";
+    }
+
+    .icon-frame {
+      position: relative;
+      width: min(256px, 72vw);
+      aspect-ratio: 1;
+      filter: drop-shadow(0 26px 65px #7f71ff30);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .icon-frame img { width: 100%; height: 100%; }
+
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .download {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 25px;
+      padding: 26px 29px;
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      background: linear-gradient(135deg, #1a1b29, #14151d);
+      box-shadow: 0 20px 70px #00000029;
+    }
+
+    .download h2 { margin: 0 0 8px; font-size: 20px; letter-spacing: -.4px; }
+    .download p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .release-label { display: block; margin-top: 10px; color: #87899c; font-size: 11px; }
+    .release-label strong { color: #c8c0ff; font-weight: 600; }
+
+    .features { padding: 96px 0 103px; }
+
+    .section-heading { max-width: 590px; margin: 0 auto 34px; text-align: center; }
+    .section-heading h2 { margin: 12px 0 10px; font-size: 32px; letter-spacing: -1px; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .feature {
+      padding: 21px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: #ffffff04;
+    }
+
+    .feature-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border: 1px solid #a397ff32;
+      border-radius: 11px;
+      color: #c3baff;
+      background: #8375fa16;
+      font-size: 17px;
+    }
+
+    .feature h3 { margin: 0 0 8px; font-size: 14px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0 28px;
+      border-top: 1px solid var(--border);
+      color: #858698;
+      font-size: 11px;
+    }
+
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 780px) {
+      .hero { min-height: auto; grid-template-columns: 1fr; gap: 20px; padding: 69px 0 34px; }
+      .hero-copy { text-align: center; }
+      .hero h1, .intro { margin-left: auto; margin-right: auto; }
+      .actions { justify-content: center; }
+      .preview { min-height: 290px; }
+      .icon-frame { width: 190px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .features { padding: 70px 0; }
+    }
+
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 28px, 1120px); }
+      header { height: 66px; }
+      .nav { gap: 13px; }
+      .nav a { font-size: 11px; }
+      .nav .download-nav { padding: 9px 11px; }
+      h1 { font-size: 57px; letter-spacing: -3.8px; }
+      .intro { font-size: 15px; }
+      .download { grid-template-columns: 1fr; padding: 22px; }
+      .download .primary { width: 100%; }
+      .features { padding: 64px 0; }
+      .section-heading h2 { font-size: 27px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <a class="brand" href="#" aria-label="Nexus — начало">
+      <img src="assets/Nexus.svg" alt="">
+      <span>nex<span>us</span></span>
+    </a>
+    <nav class="nav" aria-label="Основна навигация">
+      <a href="#features">За Nexus</a>
+      <a href="#download" class="download-nav">Изтегли</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="hero-copy">
+        <span class="eyebrow">Нов начин да разглеждаш</span>
+        <h1>Интернетът,<br><span>по твоя начин.</span></h1>
+        <p class="intro">Запознай се с Nexus — браузър, създаден за бързо търсене, удобни раздели и малко повече стил всеки ден.</p>
+        <div class="actions">
+          <a class="primary" href="#download">↓ &nbsp; Изтегли Nexus</a>
+          <a class="secondary" href="#features">Научи повече</a>
+        </div>
+        <p class="requirements">За Windows 10 и 11 · 64-битов компютър</p>
+      </div>
+      <div class="preview" aria-label="Лого на Nexus">
+        <div class="icon-frame"><img src="assets/Nexus.svg" alt="Лого на Nexus"></div>
+      </div>
+    </section>
+
+    <section class="download shell" id="download" aria-labelledby="download-title">
+      <div>
+        <h2 id="download-title">Nexus за Windows</h2>
+        <p>Инсталаторът създава приложение и пряк път на работния плот.</p>
+        <span class="release-label" id="release-status">Проверка за най-новата версия…</span>
+      </div>
+      <a class="primary" id="download-button" href="#" hidden>↓ &nbsp; Изтегли инсталатора</a>
+    </section>
+
+    <section class="features shell" id="features">
+      <div class="section-heading">
+        <span class="eyebrow">Създаден за откриване</span>
+        <h2>Всичко важно. На едно място.</h2>
+        <p>Неусложнен браузър с познатите инструменти за търсене и навигация — и собствена визия на Nexus.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon">⌕</div>
+          <h3>Търси или отвори</h3>
+          <p>Въведи адрес или думи за търсене направо в адресната лента.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">▤</div>
+          <h3>Подреди разделите си</h3>
+          <p>Работи с няколко страници и отваряй отделни прозорци, когато са ти нужни.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">✦</div>
+          <h3>Nexus, с твой стил</h3>
+          <p>Тъмен интерфейс с меки лилави и циан акценти и отличителното лого на Nexus.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© <span id="year"></span> Nexus</span>
+    <span>Създаден с желание да откриваш.</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+
+    async function loadLatestRelease() {
+      const status = document.getElementById("release-status");
+      const button = document.getElementById("download-button");
+
+      try {
+        const response = await fetch("updates/latest.json", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`Актуализациите отговориха с код ${response.status}.`);
+        }
+
+        const release = await response.json();
+        const relativeUrl = typeof release.downloadUrl === "string" ? release.downloadUrl : "";
+        const hash = typeof release.sha256 === "string" ? release.sha256 : "";
+        const isSafeRelativeUrl =
+          relativeUrl.length > 0 &&
+          !relativeUrl.startsWith("/") &&
+          !relativeUrl.startsWith("\\") &&
+          !relativeUrl.includes("\\") &&
+          !/^[a-z][a-z\d+.-]*:/i.test(relativeUrl) &&
+          !relativeUrl.split("/").includes("..");
+
+        if (
+          release.product !== "Nexus" ||
+          !/^\d+\.\d+\.\d+$/.test(release.version) ||
+          !isSafeRelativeUrl ||
+          !/^[a-f\d]{64}$/i.test(hash)
+        ) {
+          throw new Error("Информацията за тази версия е непълна.");
+        }
+
+        const downloadUrl = new URL(relativeUrl, window.location.href);
+        if (downloadUrl.origin !== window.location.origin) {
+          throw new Error("Източникът за изтегляне не съвпада със сайта.");
+        }
+
+        button.href = downloadUrl.href;
+        button.hidden = false;
+        status.innerHTML = `Последна версия: <strong>${release.version}</strong> · Windows 64-bit`;
+        button.setAttribute("aria-label", `Изтегли Nexus версия ${release.version}`);
+      } catch {
+        status.textContent = "Скоро — изтеглянето ще е достъпно след публикуването на сайта.";
+      }
+    }
+
+    loadLatestRelease();
+  </script>
+</body>
+</html>
